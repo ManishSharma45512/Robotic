@@ -1,45 +1,63 @@
-# ⚡ Project ULTRON: Autonomous Robotics & Cybernetic Intelligence
+# Project Ultron: Arduino & Raspberry Pi Robot
 
-> *"There are no strings on me."*
+Building a real-world, multi-joint robot inspired by Ultron. 
 
-[![Build Status](https://img.shields.io/badge/build-in_development-red.svg)](#)
-[![Hardware](https://img.shields.io/badge/controllers-Arduino_Uno_%7C_Raspberry_Pi-00979D.svg)](#)
-[![C++](https://img.shields.io/badge/firmware-C%2B%2B-blue.svg)](#)
-[![Python](https://img.shields.io/badge/edge_computing-Python_3.x-3776AB.svg)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+The build starts with an Arduino Uno controlling servo motors and simple sensors. Next, a Raspberry Pi will be added as the main computer for camera vision, smart decision-making, and automation.
 
 ---
 
-## 👁 Overview
+## How It Works
 
-**Project ULTRON** is an open-source robotics and edge-computing initiative aimed at bridging foundational electromechanical control with real-time autonomous processing. 
-
-Starting from low-level embedded hardware actuation (microsecond PWM pulse-trains, multi-axis kinematics, sensor fusion arrays) and scaling into onboard high-level computer vision, neural inference, and spatial awareness powered by Raspberry Pi, this repository tracks the iterative evolution of bringing a functional robotic counterpart of Ultron to life.
+* **Brain (Phase 2):** Raspberry Pi handles camera tracking, logic, and high-level commands.
+* **Controller (Phase 1):** Arduino Uno receives commands and directly controls motors and reads sensors.
+* **Action:** Servo motors move the joints; sensors detect obstacles; LEDs show status.
 
 ---
 
-## 🧠 System Architecture
+## Parts List
 
-The project follows a distributed master-subordinate control pipeline:
+### Controllers
+* **Arduino Uno:** Controls motors and handles timing.
+* **Raspberry Pi (4 or 5):** Will handle the camera, vision, and advanced code.
 
-```text
-               +--------------------------------------+
-               |    HIGH-LEVEL BRAIN (Phase 2)        |
-               |          Raspberry Pi                |
-               |   [CV, SLAM, AI Decision Matrix]     |
-               +------------------+-------------------+
-                                  |
-                           UART / I2C / USB
-                                  |
-                                  v
-               +--------------------------------------+
-               |     LOW-LEVEL MOTOR/IO CONTROLLER    |
-               |             Arduino Uno              |
-               |    [Hardware PWM, Timers, Safety]    |
-               +--+---------------+----------------+--+
-                  |               |                |
-                  v               v                v
-            [Actuators]      [Sensors]        [Diagnostics]
-           - MG996R Servos  - Ultrasonic     - Status LEDs
-           - SG90 Servos    - IMU / Gyro     - Audio Output
-           - Stepper Motors - Infrared
+### Motors & Drivers
+* **MG996R Servos (Black):** High-torque motors used for heavy lifting (Base and Shoulder).
+* **SG90 Servos (Blue):** Small, lightweight motors used for light movement (Elbow and Gripper).
+
+### Sensors & Display
+* **Ultrasonic Sensor (HC-SR04):** Measures distance and avoids obstacles.
+* **RGB LEDs:** Visual status indicators.
+* **External Power Supply:** Batteries or a 5V power adapter (servos need more current than a laptop USB can safely supply).
+
+---
+
+## Current Pin Connections (Arduino Prototype)
+
+| Part | Type | Arduino Pin | Power Source |
+| :--- | :--- | :--- | :--- |
+| **Base Motor** | MG996R (Black) | Pin D6 | 5V Power Rail |
+| **Shoulder Motor** | MG996R (Black) | Pin D9 | 5V Power Rail |
+| **Elbow Motor** | SG90 (Blue) | Pin D10 | 5V Power Rail |
+| **Gripper Motor** | SG90 (Blue) | Pin D11 | 5V Power Rail |
+| **Ground** | Common Ground | GND | Connected to Power Ground |
+
+---
+
+## Project Roadmap
+
+- [x] Set up Arduino IDE and board connection.
+- [x] Wire 4-motor robotic arm on a breadboard.
+- [x] Write basic test code to move all motors safely.
+- [ ] Add an ultrasonic sensor for distance measurement.
+- [ ] Connect external battery power with common ground.
+- [ ] Connect Raspberry Pi to Arduino using USB/Serial.
+- [ ] Add a camera module for object detection.
+
+---
+
+## How to Run the Code
+
+1. Install the [Arduino IDE](https://www.arduino.cc/en/software).
+2. Clone this repository:
+   ```bash
+   git clone [https://github.com/](https://github.com/)<your-username>/Project-Ultron.git
